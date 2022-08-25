@@ -1,0 +1,22 @@
+class Solution {
+    List<List<Integer>> res;
+    
+    public List<List<Integer>> subsets(int[] nums) {
+        res = new ArrayList<>();
+        getSubsets(nums,0,new ArrayList<>());
+        return res;
+    }
+    
+    public void getSubsets(int[]nums,int index,List<Integer>curr){
+        if(index == nums.length){
+            res.add(new ArrayList(curr));
+            return;
+        }
+        
+        getSubsets(nums,index+1,curr);      //Not included call
+        
+        curr.add(nums[index]);              // included call
+        getSubsets(nums,index+1,curr);
+        curr.remove(curr.size()-1);
+    }
+}

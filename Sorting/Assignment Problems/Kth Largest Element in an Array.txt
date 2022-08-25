@@ -1,0 +1,40 @@
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for(int val : nums){
+            max = Math.max(max,val);
+            min = Math.min(min,val);
+        }
+        
+        CountSort(nums,max,min);
+       
+        return nums[nums.length-k];
+    }
+    
+    void CountSort(int[] nums,int max,int min){
+        int range = max - min + 1;
+        int []freq = new int[range];
+        
+        for(int val : nums){                        //Freq Array
+            freq[val-min]++;
+        }
+        
+        for(int i=1;i<freq.length;i++){             //Prefix sum array of Freq
+            freq[i] += freq[i-1];
+        }
+        
+        int []ans = new int[nums.length];
+        for(int i=nums.length-1;i>=0;i--){
+            int val = nums[i];
+            int pos = freq[val-min]-1;
+            ans[pos] = val;
+            freq[val-min]--;
+        }
+        
+        for(int i=0;i<nums.length;i++){
+            nums[i] = ans[i];
+        }
+    }
+    
+}

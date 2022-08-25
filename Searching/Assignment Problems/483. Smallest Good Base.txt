@@ -1,0 +1,38 @@
+class Solution {
+    public String smallestGoodBase(String n) {
+        long num = Long.valueOf(n);
+        
+        for(int i=61;i>2;i--){
+            long low = 2;
+            long high = num - 1;
+            
+            while(low  <= high){
+                long mid = (low+high)/2;
+                
+                boolean flag = false;
+                long j = 1;
+                long val = 1;
+                long res = 1;
+                
+                while(j < i){
+                    if(val > (num - res)/mid){
+                        flag = true;
+                        break;
+                    }
+                    j++;
+                    val *= mid;
+                    res += val;
+                }
+                
+                if(flag == true || res > num){
+                    high = mid - 1;
+                }else if(res < num){
+                    low = mid + 1;
+                }else{
+                    return String.valueOf(mid);
+                }
+            }
+        }
+        return String.valueOf(num - 1);        
+    }
+}

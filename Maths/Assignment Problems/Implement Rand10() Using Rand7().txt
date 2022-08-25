@@ -1,0 +1,14 @@
+class Solution extends SolBase {
+    public int rand10() {
+        int x = rand7();
+        int y = rand7();
+        
+        int val = 7*(x-1) + y;
+        
+        if(val >= 41){
+            return rand10();
+        }
+        
+        return val%10 + 1;
+    }
+}

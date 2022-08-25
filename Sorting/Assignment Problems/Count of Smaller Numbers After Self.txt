@@ -1,0 +1,81 @@
+class Solution {
+    int[]count;
+    
+    public List<Integer> countSmaller(int[] nums) {
+        int n = nums.length;
+        count = new int[n];
+        
+        int []index = new int[n];
+        for(int i=0;i<n;i++){
+            index[i] = i;
+        }
+        
+        mergeSort(index,0,n-1,nums);
+        
+        List<Integer> result = new ArrayList<>();
+        for(int val : count){
+            result.add(val);
+        }
+        
+        return result;
+    }
+    
+    public int[] mergeSort(int[]index,int low,int high,int[]nums){
+        if(low == high){
+            return new int[]{index[low]};
+        }
+        int mid = (low + high)/2;
+        
+        int[] left = mergeSort(index,low,mid,nums);
+        int[] right = mergeSort(index,mid+1,high,nums);
+        
+        int []ans = mergeSortedArrays(left,right,nums);
+        
+        return ans;
+    }
+    
+    public int[]mergeSortedArrays(int[]left,int[]right,int[]nums){
+        int[] ans = new int[left.length+right.length];
+        int i=0;
+        int j=0;
+        int k=0;
+        
+        int rcounter = 0;                         //*
+        
+        while( i < left.length && j < right.length){
+            if(nums[left[i]] <= nums[right[j]]){
+                
+                count[left[i]] += rcounter;       //**
+                
+                ans[k] = left[i];
+                i++;
+                k++;
+            }else{
+                
+                rcounter++;                       //***
+                
+                ans[k] = right[j];
+                j++;
+                k++;
+            }
+        }
+        
+        while(i < left.length){
+            count[left[i]] += rcounter;           //****
+            
+            ans[k] = left[i];
+            i++;
+            k++;
+        }
+        
+        while(j < right.length){
+            ans[k] = right[j];
+            j++;
+            k++;
+        }
+        
+        return ans;
+    }
+    
+}
+

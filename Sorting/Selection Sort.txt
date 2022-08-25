@@ -1,0 +1,19 @@
+void SelectionSort(int[]nums){
+        
+        for(int i=0;i<nums.length-1;i++){
+            
+		int midx = i;
+            
+            for(int j = i+1;j<nums.length;j++){
+                
+                if(nums[midx] > nums[j]){                 
+                    midx = j;
+                }
+                
+            }
+            
+            int temp = nums[i];         //Swap
+            nums[i] = nums[midx];
+            nums[midx] = temp;
+        }
+    }

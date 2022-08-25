@@ -1,0 +1,41 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        
+        int left = 0;
+        int right = nums.length-1;
+        
+        int findex = -1;                    //First Occurence
+        
+        while(left <= right){
+            int mid = (left+right)/2;
+            
+            if(target > nums[mid]){
+                left = mid + 1;                               
+            }else if(target < nums[mid]){
+                right = mid-1;
+            }else{
+                findex = mid;
+                right = mid-1;              // **imp
+            }
+        }
+                                            //Last Occurence
+        left = 0;
+        right = nums.length - 1;
+        int lindex = -1;
+        
+        while(left <= right){
+            int mid = (left+right)/2;
+            if(target > nums[mid]){
+                left = mid + 1;
+            }else if(target < nums[mid]){
+                right = mid - 1;
+            }else{
+                lindex = mid;
+                left = mid + 1;               // **imp
+            }
+        }
+        
+        
+        return new int[]{findex,lindex};
+    }
+}

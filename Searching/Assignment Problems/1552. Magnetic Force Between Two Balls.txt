@@ -1,0 +1,45 @@
+class Solution {
+    public int maxDistance(int[] position, int m) {
+        Arrays.sort(position);
+        
+        int low = 0;
+        int high = position[position.length - 1];
+        int ans = 0;
+        
+        while(low <= high){
+            
+            int mid = low + (high - low)/2;
+            
+            boolean isForcePossible = isValid(position,mid,m);
+            
+            if(isForcePossible == true){
+                ans = mid;
+                low = mid + 1;
+            }else{
+                high = mid - 1;
+            }
+        }
+        
+        return ans;
+    }
+    
+    boolean isValid(int[]position,int mid,int m){
+        int placed = 1;
+        int prev = position[0];
+        
+        for(int i=1;i<position.length;i++){
+            if(position[i] - prev >= mid){
+                placed++;
+                prev = position[i];
+                if(placed == m){
+                    return true;
+                }
+            }
+        }
+        
+        if(placed < m){
+            return false;
+        }
+        return true;
+    }
+}

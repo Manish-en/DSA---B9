@@ -1,0 +1,41 @@
+class Solution {
+    public int maxAbsValExpr(int[] arr1, int[] arr2) {
+        
+        int []val1 = new int[arr1.length];
+        int []val2 = new int[arr1.length];
+        int []val3 = new int[arr1.length];
+        int []val4 = new int[arr1.length];
+        
+        for(int i=0;i<arr1.length;i++){
+            val1[i] = i + arr1[i] + arr2[i];
+            val2[i] = i - arr1[i] + arr2[i];
+            val3[i] = i + arr1[i] - arr2[i];
+            val4[i] = i - arr1[i] - arr2[i];
+        }
+        
+        int result = 0;
+        
+        result = Math.max(result,maxarray(val1) - minarray(val1));
+        result = Math.max(result,maxarray(val2) - minarray(val2));
+        result = Math.max(result,maxarray(val3) - minarray(val3));
+        result = Math.max(result,maxarray(val4) - minarray(val4));
+        
+        return result;
+    }
+    
+    public int maxarray(int []arr){
+        int max = Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++){
+            max = Math.max(max,arr[i]);
+        }
+        return max;
+    }
+    
+    public int minarray(int []arr){
+        int min = Integer.MAX_VALUE;
+        for(int i=0;i<arr.length;i++){
+            min = Math.min(min,arr[i]);
+        }
+        return min;
+    }
+}

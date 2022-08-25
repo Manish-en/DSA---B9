@@ -1,0 +1,43 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int [][]arr = new int[n][n];
+        int count = 1;
+        int total = n*n;
+        
+        int minr = 0;
+        int minc = 0;
+        int maxr = arr.length-1;
+        int maxc = arr[0].length-1;
+        
+        while(count <= total){
+            //right
+            for(int i=minr,j=minc;j<=maxc && count <= total ;j++){
+                arr[i][j] = count;
+                count++;
+            }
+            minr++;
+            
+            //down 
+            for(int i=minr,j=maxc;i<=maxr && count <= total ;i++){
+                arr[i][j] = count;
+                count++;
+            }
+            maxc--;
+            //left 
+            for(int i=maxr,j=maxc;j>=minc && count <= total ;j--){
+                arr[i][j] = count;
+                count++;
+            }
+            maxr--;
+            //up
+            for(int i=maxr,j=minc;i>=minr && count <= total ;i--){
+                arr[i][j] = count;
+                count++;
+            }
+            minc++;
+        }
+        
+        return arr;
+        
+    }
+}

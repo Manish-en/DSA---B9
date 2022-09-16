@@ -1,0 +1,55 @@
+class MyStack {
+        Queue<Integer> mainQ;
+        Queue<Integer> helperQ;
+
+    public MyStack() {
+        mainQ = new ArrayDeque<>();
+        helperQ = new ArrayDeque<>();
+    }
+    
+    public void push(int x) {
+            helperQ.add(x);
+            while(mainQ.size() > 0){
+                    helperQ.add(mainQ.remove());
+            }
+            
+            Queue<Integer>temp = mainQ;
+            mainQ = helperQ;
+            helperQ = temp;
+    }
+    
+    public int pop() {
+            if(mainQ.size()==0){
+                    System.out.println("Stack underflow");
+                    return -1;
+            }
+            return mainQ.remove();
+        
+    }
+    
+    public int top() {
+             if(mainQ.size()==0){
+                    System.out.println("Stack underflow");
+                    return -1;
+            }
+            return mainQ.peek();
+           
+    }
+    
+    public boolean empty() {
+        if(mainQ.size()==0){
+                return true;
+        }else{
+                return false;
+        }
+    }
+}
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * boolean param_4 = obj.empty();
+ */
